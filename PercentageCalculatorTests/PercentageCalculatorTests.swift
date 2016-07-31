@@ -26,10 +26,21 @@ class PercentageCalculatorTests: XCTestCase {
     }
     
     func testPercentageCalculator() {
-        
         let p = vc.percentage(50, 50)
         XCTAssert(p == 25)
+    }
     
+    func testLabelValuesShowedProperly() {
+        let _ = vc.view
+        vc.updateLabels(Float(80.0), Float(50.0), Float(40.0))
+        // access view property of vc which triggers the loadView() method
+        // calling loadView() on its own is bad because it might cause a memory leak when objects
+        // that have already been loaded are loaded again
+        
+        // labels should now display 80, 50, and 40
+        XCTAssert(vc.numberLabel.text == "80.0")
+        XCTAssert(vc.percentageLabel.text == "50.0%")
+        XCTAssert(vc.resultLabel.text == "40.0")
     }
     
     func testExample() {
